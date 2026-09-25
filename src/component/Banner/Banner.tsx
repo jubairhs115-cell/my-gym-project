@@ -8,7 +8,7 @@ const Banner = () => {
         <div className="min-h-screen bg-black">
             <div className="container mx-auto px-4 py-10">
 
-                <div className="w-full h-[448px] bg-black text-white rounded-2xl overflow-hidden">
+                <div className="w-full h-112 bg-black text-white rounded-2xl overflow-hidden">
 
                     <div className="h-full flex items-center justify-between px-10 lg:px-14">
 
@@ -24,9 +24,9 @@ const Banner = () => {
                                 LOG EVERY SET.
                             </h2>
 
-                            <p className="text-gray-400 text-[16px] leading-6 mt-5 max-w-[620px]">
+                            <p className="text-gray-400 text-[16px] leading-6 mt-5 max-w-115">
                                 FitLog is a dark, no-nonsense gym companion: pick a lift,
-                                lock it into today's plan, and watch the week's work add up.
+                                lock it into todays plan, and watch the weeks work add up.
                             </p>
 
                             <button className="mt-6 btn bg-lime-400 hover:bg-lime-300 text-black border-none font-bold px-7">
@@ -35,13 +35,13 @@ const Banner = () => {
                         </div>
 
                         {/* Image */}
-                        <div className="w-[334px] h-[334px] shrink-0">
+                        <div className="w-83.5 h-83.5 shrink-0">
                             <Image
                                 src={logo}
                                 alt="Workout"
                                 width={334}
                                 height={334}
-                                className="w-[334px] h-[334px] object-cover rounded-xl"
+                                className="w-83.5 h-83.5 object-cover rounded-xl"
                                 priority
                             />
                         </div>

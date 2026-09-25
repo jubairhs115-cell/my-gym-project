@@ -92,7 +92,7 @@ const Navbar = () => {
 
                     <li>
                         <Link
-    href=""
+    href="/"
     className="!text-black font-semibold rounded-full px-6 py-3 bg-[#C2F800] hover:bg-[#C2F800]/90 transition duration-300"
 >
     Workout
