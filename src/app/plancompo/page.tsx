@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 
 import { GymContext1 } from "@/app/context/page";
+ 
 
 const SavePlanPage = () => {
   const context = useContext(GymContext1);
@@ -64,7 +65,9 @@ const SavePlanPage = () => {
   });
 
   const handleRemove = (id: number) => {
+
     removePlan(id);
+      
   };
 
   return (

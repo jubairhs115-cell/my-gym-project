@@ -3,7 +3,7 @@
 import React, { useContext } from "react";
 import { GymContext1 } from "@/app/context/page";
 import { IExercise } from "@/type/typo";
-import Link from "next/link";
+ 
 import { toast } from "react-toastify";
 
 const AddToday = ({ check }: { check: IExercise }) => {
