@@ -1,29 +1,29 @@
- "use client";
+"use client";
 
 import React, { useContext } from "react";
 import { GymContext1 } from "@/app/context/page";
 import { IExercise } from "@/type/typo";
 import Link from "next/link";
 
-const AddToday = ({ check }: { check: IExercise }) => {
+const SaveLater = ({ check }: { check: IExercise }) => {
   const context = useContext(GymContext1);
 
   if (!context) {
     return <div>Context not found</div>;
   }
 
-  const { plan, setPlan } = context;
+  const { save, setSave } = context;
 
   const handlegym = () => {
-    const alreadyAdded = plan.some(
+    const alreadySaved = save.some(
       (exercise) => exercise.id === check.id
     );
 
-    if (alreadyAdded) {
+    if (alreadySaved) {
       return;
     }
 
-    setPlan((prev) => [...prev, check]);
+    setSave((prev) => [...prev, check]);
   };
 
   return (
@@ -33,21 +33,21 @@ const AddToday = ({ check }: { check: IExercise }) => {
         onClick={handlegym}
         className="h-12 rounded-xl bg-lime-400 px-5 text-sm font-bold text-black"
       >
-        Add to Todays Plan
+        Save for Later
       </button>
 
       <Link
-        href="/plancompo"
+        href="/savecompo"
         className="ml-4 text-white"
       >
-        Go to Plan
+        Go to Saved
       </Link>
 
       <p className="mt-4 text-white">
-        Current Plan: {plan.length}
+        Saved Exercises: {save.length}
       </p>
     </div>
   );
 };
 
-export default AddToday;
+export default SaveLater;

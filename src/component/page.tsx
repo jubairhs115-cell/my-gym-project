@@ -130,7 +130,7 @@ const Navbar = () => {
 
         {/* Saved */}
         <Link
-          href="/saved"
+          href="/savecompo"
           className="btn btn-ghost text-gray-300 hover:bg-pink-400 hover:text-black rounded-xl gap-2"
         >
           <span>Saved</span>

@@ -10,6 +10,7 @@ import {
     Target,
 } from "lucide-react";
 import AddToday from "@/app/addtoday/page";
+import SaveLater from "@/app/savelater/page";
 
 
 interface Props {
@@ -322,13 +323,7 @@ const GymDetails = async ({ params }: Props) => {
                                  
                                  <AddToday  check={check}/>
                                 
-                                <button
-                                    type="button"
-                                    className="h-12 rounded-xl border border-zinc-700 bg-black px-5 text-sm font-bold text-white transition-all duration-300 hover:border-zinc-500 hover:bg-zinc-900"
-                                >
-                                    Save for Later
-                                </button>
-
+                               <SaveLater check={check}/>
                             </div>
 
                         </div>
