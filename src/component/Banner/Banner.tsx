@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import React from "react";
+ 
 import logo from "@/assest/banner.png";
 import Link from "next/link";
 
