@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import React, { useContext, useState } from "react";
 
@@ -16,7 +16,12 @@ const SelectiveTabs = () => {
     return <div>Context not found</div>;
   }
 
-  const { plan, save } = context;
+  const {
+    plan,
+    save,
+    sortBy,
+    setSortBy,
+  } = context;
 
   const currentData = activeTab === "plan" ? plan : save;
 
@@ -32,9 +37,9 @@ const SelectiveTabs = () => {
 
   return (
     <div className="min-h-screen bg-black px-4 py-8 text-white">
-      <div className="mx-auto max-w-[1184px]">
+      <div className="mx-auto w-full max-w-[1184px]">
 
-        {/* Your Plan */}
+        {/* Heading */}
         <h1 className="mb-6 text-3xl font-bold text-white">
           Your Plan
         </h1>
@@ -79,12 +84,37 @@ const SelectiveTabs = () => {
           </div>
         </div>
 
-        {/* Plan / Saved Tabs */}
-        <div className="mt-8 w-full bg-black">
+        {/* Sort */}
+        <div className="mt-6 flex justify-end">
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="select select-warning bg-black text-white"
+          >
+            <option value="" disabled>
+              Sort by
+            </option>
+
+            <option value="duration">
+              Duration
+            </option>
+
+            <option value="time">
+              Time
+            </option>
+
+            <option value="calories">
+              Calories
+            </option>
+          </select>
+        </div>
+
+        {/* Tabs */}
+        <div className="mt-4 w-full bg-black">
 
           <div className="tabs tabs-lift tabs-bottom w-full">
 
-            {/* Plan */}
+            {/* Plan Tab */}
             <input
               type="radio"
               name="my_tabs_5"
@@ -98,7 +128,7 @@ const SelectiveTabs = () => {
               <SavePlanPage />
             </div>
 
-            {/* Saved */}
+            {/* Saved Tab */}
             <input
               type="radio"
               name="my_tabs_5"

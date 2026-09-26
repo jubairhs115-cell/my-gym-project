@@ -1,7 +1,8 @@
-"use client";
+ "use client";
 
 import React, { useContext } from "react";
 import Image from "next/image";
+
 import {
   Clock,
   Flame,
@@ -10,6 +11,7 @@ import {
   Star,
   X,
 } from "lucide-react";
+
 import { GymContext1 } from "@/app/context/page";
 
 const SaveCompoPage = () => {
@@ -23,24 +25,50 @@ const SaveCompoPage = () => {
     );
   }
 
-  const { save, removeSave } = context;
+  const {
+    save,
+    removeSave,
+    sortBy,
+  } = context;
+
+  // Sort saved exercises
+  const sortedSave = [...save].sort((a, b) => {
+    if (sortBy === "duration") {
+      return Number(a.duration) - Number(b.duration);
+    }
+
+    if (sortBy === "time") {
+      return Number(a.duration) - Number(b.duration);
+    }
+
+    if (sortBy === "calories") {
+      return (
+        Number(a.caloriesBurned) -
+        Number(b.caloriesBurned)
+      );
+    }
+
+    return 0;
+  });
 
   return (
-    <div className="min-h-screen w-full bg-black text-white pt-10">
-      
+    <div className="min-h-screen w-full bg-black pt-10 text-white">
+
       {/* Heading */}
-      <div className="relative mb-5 flex h-12 items-center justify-center">
-        <h1 className="text-center text-2xl font-bold">
+      <div className="relative mb-5 w-full">
+
+        <h1 className="w-full text-center text-2xl font-bold">
           Saved Exercises
         </h1>
 
-        <span className="absolute right-0 rounded-full bg-pink-400 px-4 py-2 text-sm font-bold text-black">
-          {save.length} Exercises
+        <span className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full bg-pink-400 px-4 py-2 text-sm font-bold text-black">
+          {sortedSave.length} Exercises
         </span>
+
       </div>
 
       {/* Empty State */}
-      {save.length === 0 && (
+      {sortedSave.length === 0 && (
         <div className="flex h-[114px] w-full items-center justify-center rounded-2xl border border-zinc-800 bg-black">
           <p className="text-sm text-zinc-500">
             No exercises saved for later.
@@ -50,12 +78,13 @@ const SaveCompoPage = () => {
 
       {/* Saved Cards */}
       <div className="space-y-4">
-        {save.map((exercise) => (
+
+        {sortedSave.map((exercise) => (
           <div
             key={exercise.id}
             className="relative flex min-h-[114px] w-full flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-black md:h-[114px] md:flex-row"
           >
-            
+
             {/* Remove Button */}
             <button
               type="button"
@@ -77,10 +106,10 @@ const SaveCompoPage = () => {
 
             {/* Content */}
             <div className="flex flex-1 flex-col justify-center px-4 py-4 md:flex-row md:items-center md:px-5 md:py-0">
-              
+
               {/* Name + Muscle Groups */}
               <div className="min-w-0 flex-1 pr-10">
-                
+
                 {/* Rating */}
                 <div className="mb-1 flex items-center gap-2">
                   <Star
@@ -100,20 +129,23 @@ const SaveCompoPage = () => {
 
                 {/* Muscle Groups */}
                 <div className="mt-2 flex flex-wrap gap-2">
-                  {exercise.muscleGroups?.slice(0, 3).map((muscle) => (
-                    <span
-                      key={muscle}
-                      className="rounded-full bg-pink-400/10 px-2 py-1 text-[10px] text-pink-400"
-                    >
-                      {muscle}
-                    </span>
-                  ))}
+                  {exercise.muscleGroups
+                    ?.slice(0, 3)
+                    .map((muscle) => (
+                      <span
+                        key={muscle}
+                        className="rounded-full bg-pink-400/10 px-2 py-1 text-[10px] text-pink-400"
+                      >
+                        {muscle}
+                      </span>
+                    ))}
                 </div>
+
               </div>
 
               {/* Time / Calories / Sets / Reps */}
               <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 md:mr-12 md:mt-0 md:flex md:items-center md:gap-6">
-                
+
                 {/* Time */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Clock
@@ -179,10 +211,14 @@ const SaveCompoPage = () => {
                 </div>
 
               </div>
+
             </div>
+
           </div>
         ))}
+
       </div>
+
     </div>
   );
 };
