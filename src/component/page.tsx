@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -18,28 +19,25 @@ const Navbar = () => {
 
   const { plan, save } = context;
 
-  // Workout is active on home page
   const workoutActive = pathname === "/";
 
-  // My Plan is active on these pages
   const planActive =
     pathname === "/card3" ||
     pathname === "/plancompo" ||
     pathname === "/savecompo";
 
   return (
-    <div className="navbar bg-black/95 border-b border-white/10 px-4 shadow-lg lg:px-8">
+    <div className="navbar bg-black/95 border-b border-white/10 px-3 shadow-lg sm:px-4 lg:px-8">
 
       {/* Left Side */}
       <div className="navbar-start">
 
         {/* Mobile Menu */}
-        <div className="dropdown">
-
+        <div className="dropdown lg:hidden">
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost btn-circle text-white hover:bg-white/10 lg:hidden"
+            className="btn btn-ghost btn-circle text-white hover:bg-white/10"
           >
             <svg
               aria-label="Menu"
@@ -60,7 +58,7 @@ const Navbar = () => {
 
           <ul
             tabIndex={-1}
-            className="menu menu-sm dropdown-content z-1 mt-3 w-52 rounded-2xl border border-white/10 bg-neutral-900 p-3 text-white shadow-xl"
+            className="menu menu-sm dropdown-content z-50 mt-3 w-52 rounded-2xl border border-white/10 bg-neutral-900 p-3 text-white shadow-xl"
           >
             {/* Workout */}
             <li>
@@ -90,12 +88,10 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-
         </div>
 
         {/* Logo */}
         <div className="flex items-center gap-2">
-
           <Image
             src={logo}
             alt="Logo"
@@ -104,25 +100,23 @@ const Navbar = () => {
             className="rounded-xl"
           />
 
-          <p className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+          <p className="text-xl font-black tracking-tight text-white sm:text-2xl lg:text-3xl">
             FIT<span className="text-lime-400">LOG</span>
           </p>
-
         </div>
       </div>
 
       {/* Desktop Navigation */}
       <div className="navbar-center hidden lg:flex">
-
         <ul className="menu menu-horizontal gap-2 px-1">
 
           {/* Workout */}
           <li>
             <Link
               href="/"
-              className={`font-semibold rounded-full px-6 py-3 transition duration-300 ${
+              className={`rounded-full px-6 py-3 font-semibold transition duration-300 ${
                 workoutActive
-                  ? "!text-black bg-[#C2F800]"
+                  ? "!bg-[#C2F800] !text-black"
                   : "text-lime-300 hover:bg-lime-300 hover:!text-black"
               }`}
             >
@@ -134,49 +128,72 @@ const Navbar = () => {
           <li>
             <Link
               href="/card3"
-              className={`font-semibold rounded-full px-6 py-3 transition duration-300 ${
+              className={`rounded-full px-6 py-3 font-semibold transition duration-300 ${
                 planActive
-                  ? "!text-black bg-[#C2F800]"
+                  ? "!bg-[#C2F800] !text-black"
                   : "!text-lime-300 hover:bg-lime-300 hover:!text-black"
               }`}
             >
               My Plan
             </Link>
           </li>
-
         </ul>
-
       </div>
 
       {/* Right Side */}
-      <div className="navbar-end gap-2">
+      <div className="navbar-end">
 
-        {/* Plan */}
-        <Link
-          href="/plancompo"
-          className="btn btn-ghost gap-2 rounded-xl text-gray-300 hover:bg-lime-400 hover:text-black"
-        >
-          <span>Plan</span>
+        {/* Mobile: One Button */}
+        <div className="flex lg:hidden">
+          <Link
+            href="/plancompo"
+            className="flex items-center gap-2 rounded-full border border-lime-400/30 bg-lime-400/10 px-3 py-2 text-sm font-semibold text-lime-300 transition hover:bg-lime-400 hover:text-black"
+          >
+            <span>Plan</span>
 
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-lime-500 text-sm font-bold text-white">
-            {plan.length}
-          </span>
-        </Link>
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-lime-400 text-xs font-bold text-black">
+              {plan.length}
+            </span>
 
-        {/* Saved */}
-        <Link
-          href="/savecompo"
-          className="btn btn-ghost gap-2 rounded-xl text-gray-300 hover:bg-pink-400 hover:text-black"
-        >
-          <span>Saved</span>
+            <span className="text-white/40">|</span>
 
-          <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white bg-black text-sm font-bold text-white">
-            {save.length}
-          </span>
-        </Link>
+            <span>Saved</span>
 
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-xs font-bold text-white">
+              {save.length}
+            </span>
+          </Link>
+        </div>
+
+        {/* Desktop: Plan + Saved */}
+        <div className="hidden gap-2 lg:flex">
+
+          {/* Plan */}
+          <Link
+            href="/plancompo"
+            className="btn btn-ghost gap-2 rounded-xl text-gray-300 hover:bg-lime-400 hover:text-black"
+          >
+            <span>Plan</span>
+
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-lime-500 text-sm font-bold text-white">
+              {plan.length}
+            </span>
+          </Link>
+
+          {/* Saved */}
+          <Link
+            href="/savecompo"
+            className="btn btn-ghost gap-2 rounded-xl text-gray-300 hover:bg-pink-400 hover:text-black"
+          >
+            <span>Saved</span>
+
+            <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white bg-black text-sm font-bold text-white">
+              {save.length}
+            </span>
+          </Link>
+
+        </div>
       </div>
-
     </div>
   );
 };
