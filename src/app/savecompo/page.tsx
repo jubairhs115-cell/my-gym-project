@@ -10,33 +10,31 @@ import {
   Star,
   X,
 } from "lucide-react";
-
 import { GymContext1 } from "@/app/context/page";
 
 const SaveCompoPage = () => {
   const context = useContext(GymContext1);
 
   if (!context) {
-    return <div className="min-h-screen bg-black text-white">Context not found</div>;
+    return (
+      <div className="min-h-screen bg-black text-white">
+        Context not found
+      </div>
+    );
   }
 
   const { save, removeSave } = context;
 
   return (
-    <div className="min-h-screen w-full bg-black text-white">
+    <div className="min-h-screen w-full bg-black text-white pt-10">
+      
       {/* Heading */}
-      <div className="mb-5 flex items-center justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-widest text-pink-400">
-            Your Collection
-          </p>
+      <div className="relative mb-5 flex h-12 items-center justify-center">
+        <h1 className="text-center text-2xl font-bold">
+          Saved Exercises
+        </h1>
 
-          <h1 className="mt-1 text-2xl font-bold">
-            Saved Exercises
-          </h1>
-        </div>
-
-        <span className="rounded-full bg-pink-400 px-4 py-2 text-sm font-bold text-black">
+        <span className="absolute right-0 rounded-full bg-pink-400 px-4 py-2 text-sm font-bold text-black">
           {save.length} Exercises
         </span>
       </div>
@@ -57,6 +55,7 @@ const SaveCompoPage = () => {
             key={exercise.id}
             className="relative flex min-h-[114px] w-full flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-black md:h-[114px] md:flex-row"
           >
+            
             {/* Remove Button */}
             <button
               type="button"
@@ -78,8 +77,11 @@ const SaveCompoPage = () => {
 
             {/* Content */}
             <div className="flex flex-1 flex-col justify-center px-4 py-4 md:flex-row md:items-center md:px-5 md:py-0">
+              
               {/* Name + Muscle Groups */}
               <div className="min-w-0 flex-1 pr-10">
+                
+                {/* Rating */}
                 <div className="mb-1 flex items-center gap-2">
                   <Star
                     size={15}
@@ -91,10 +93,12 @@ const SaveCompoPage = () => {
                   </span>
                 </div>
 
+                {/* Exercise Name */}
                 <h2 className="truncate text-lg font-bold">
                   {exercise.name}
                 </h2>
 
+                {/* Muscle Groups */}
                 <div className="mt-2 flex flex-wrap gap-2">
                   {exercise.muscleGroups?.slice(0, 3).map((muscle) => (
                     <span
@@ -109,6 +113,7 @@ const SaveCompoPage = () => {
 
               {/* Time / Calories / Sets / Reps */}
               <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 md:mr-12 md:mt-0 md:flex md:items-center md:gap-6">
+                
                 {/* Time */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Clock
@@ -172,6 +177,7 @@ const SaveCompoPage = () => {
                     {exercise.reps}
                   </p>
                 </div>
+
               </div>
             </div>
           </div>

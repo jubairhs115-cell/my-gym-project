@@ -32,32 +32,35 @@ const SelectiveTabs = () => {
 
   return (
     <div className="min-h-screen bg-black px-4 py-8 text-white">
-
       <div className="mx-auto max-w-[1184px]">
 
-        {/* Summary Box */}
-        <div className="mb-6 h-[122px] w-full rounded-2xl border border-zinc-800 bg-black">
+        {/* Your Plan */}
+        <h1 className="mb-6 text-3xl font-bold text-white">
+          Your Plan
+        </h1>
 
+        {/* Summary Box */}
+        <div className="h-[122px] w-full rounded-2xl border border-zinc-800 bg-black">
           <div className="grid h-full grid-cols-3">
 
             {/* Exercises */}
-            <div className="flex flex-col items-center justify-center border-r border-zinc-800">
+            <div className="flex flex-col items-center justify-center">
               <p className="text-sm text-zinc-500">
                 Exercises
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-lime-400">
+              <p className="mt-2 text-3xl font-bold text-[#C2F800]">
                 {currentData.length}
               </p>
             </div>
 
             {/* Minutes */}
-            <div className="flex flex-col items-center justify-center border-r border-zinc-800">
+            <div className="flex flex-col items-center justify-center">
               <p className="text-sm text-zinc-500">
                 Minutes
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-lime-400">
+              <p className="mt-2 text-3xl font-bold text-[#C2F800]">
                 {totalMinutes}
               </p>
             </div>
@@ -68,7 +71,7 @@ const SelectiveTabs = () => {
                 Calories
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-lime-400">
+              <p className="mt-2 text-3xl font-bold text-[#C2F800]">
                 {totalCalories}
               </p>
             </div>
@@ -76,34 +79,38 @@ const SelectiveTabs = () => {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="tabs tabs-lift tabs-bottom w-full">
+        {/* Plan / Saved Tabs */}
+        <div className="mt-8 w-full bg-black">
 
-          {/* Plan */}
-          <input
-            type="radio"
-            name="my_tabs_5"
-            className="tab"
-            aria-label="Plan"
-            defaultChecked
-            onChange={() => setActiveTab("plan")}
-          />
+          <div className="tabs tabs-lift tabs-bottom w-full">
 
-          <div className="tab-content border-zinc-800 bg-black p-0 pt-6">
-            <SavePlanPage />
-          </div>
+            {/* Plan */}
+            <input
+              type="radio"
+              name="my_tabs_5"
+              className="tab bg-black text-zinc-400 checked:text-[#C2F800]"
+              aria-label="Plan"
+              defaultChecked
+              onChange={() => setActiveTab("plan")}
+            />
 
-          {/* Saved */}
-          <input
-            type="radio"
-            name="my_tabs_5"
-            className="tab"
-            aria-label="Saved"
-            onChange={() => setActiveTab("save")}
-          />
+            <div className="tab-content border-zinc-800 bg-black p-0 pt-6">
+              <SavePlanPage />
+            </div>
 
-          <div className="tab-content border-zinc-800 bg-black p-0 pt-6">
-            <SaveCompoPage />
+            {/* Saved */}
+            <input
+              type="radio"
+              name="my_tabs_5"
+              className="tab bg-black text-zinc-400 checked:text-[#C2F800]"
+              aria-label="Saved"
+              onChange={() => setActiveTab("save")}
+            />
+
+            <div className="tab-content border-zinc-800 bg-black p-0 pt-6">
+              <SaveCompoPage />
+            </div>
+
           </div>
 
         </div>
