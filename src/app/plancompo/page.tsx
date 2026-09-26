@@ -1,9 +1,7 @@
-
 "use client";
 
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Image from "next/image";
-
 import {
   Clock,
   Flame,
@@ -12,9 +10,8 @@ import {
   Star,
   X,
 } from "lucide-react";
-
 import { GymContext1 } from "@/app/context/page";
- 
+import { toast } from "react-toastify";
 
 const SavePlanPage = () => {
   const context = useContext(GymContext1);
@@ -27,11 +24,7 @@ const SavePlanPage = () => {
     );
   }
 
-  const {
-    plan,
-    removePlan,
-    sortBy,
-  } = context;
+  const { plan, removePlan, sortBy } = context;
 
   const sortedPlan = [...plan].sort((a, b) => {
     if (sortBy === "duration") {
@@ -65,14 +58,19 @@ const SavePlanPage = () => {
   });
 
   const handleRemove = (id: number) => {
-
     removePlan(id);
-      
+
+    toast.success("Exercise removed from your plan!", {
+      position: "top-right",
+      autoClose: 2000,
+      theme: "dark",
+    });
   };
 
   return (
     <div className="min-h-screen w-full bg-black pt-10 text-white">
-
+      
+      {/* Header */}
       <div className="relative mb-5 w-full">
         <h1 className="w-full text-center text-2xl font-bold">
           Today's Plan
@@ -83,6 +81,7 @@ const SavePlanPage = () => {
         </span>
       </div>
 
+      {/* Empty Plan */}
       {sortedPlan.length === 0 && (
         <div className="flex h-[114px] w-full items-center justify-center rounded-2xl border border-zinc-800 bg-black">
           <p className="text-sm text-zinc-500">
@@ -91,24 +90,24 @@ const SavePlanPage = () => {
         </div>
       )}
 
+      {/* Plan Cards */}
       <div className="space-y-4">
-
         {sortedPlan.map((exercise) => (
           <div
             key={exercise.id}
             className="relative flex min-h-[114px] w-full flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-black md:h-[114px] md:flex-row"
           >
-
+            
+            {/* Remove Button */}
             <button
               type="button"
-              onClick={() =>
-                handleRemove(exercise.id)
-              }
+              onClick={() => handleRemove(exercise.id)}
               className="absolute right-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-zinc-900 text-white transition hover:bg-red-500"
             >
               <X size={16} />
             </button>
 
+            {/* Image */}
             <div className="relative h-[170px] w-full shrink-0 md:h-full md:w-[150px]">
               <Image
                 src={exercise.image}
@@ -118,10 +117,13 @@ const SavePlanPage = () => {
               />
             </div>
 
+            {/* Content */}
             <div className="flex flex-1 flex-col justify-center px-4 py-4 md:flex-row md:items-center md:px-5 md:py-0">
-
+              
+              {/* Exercise Info */}
               <div className="min-w-0 flex-1 pr-10">
-
+                
+                {/* Rating */}
                 <div className="mb-1 flex items-center gap-2">
                   <Star
                     size={15}
@@ -133,10 +135,12 @@ const SavePlanPage = () => {
                   </span>
                 </div>
 
+                {/* Name */}
                 <h2 className="truncate text-lg font-bold">
                   {exercise.name}
                 </h2>
 
+                {/* Muscle Groups */}
                 <div className="mt-2 flex flex-wrap gap-2">
                   {exercise.muscleGroups
                     ?.slice(0, 3)
@@ -149,11 +153,12 @@ const SavePlanPage = () => {
                       </span>
                     ))}
                 </div>
-
               </div>
 
+              {/* Exercise Details */}
               <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 md:mr-12 md:mt-0 md:flex md:items-center md:gap-6">
-
+                
+                {/* Time */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Clock
                     size={16}
@@ -169,6 +174,7 @@ const SavePlanPage = () => {
                   </p>
                 </div>
 
+                {/* Calories */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Flame
                     size={16}
@@ -184,6 +190,7 @@ const SavePlanPage = () => {
                   </p>
                 </div>
 
+                {/* Sets */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Dumbbell
                     size={16}
@@ -199,6 +206,7 @@ const SavePlanPage = () => {
                   </p>
                 </div>
 
+                {/* Reps */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Target
                     size={16}
@@ -215,11 +223,9 @@ const SavePlanPage = () => {
                 </div>
 
               </div>
-
             </div>
           </div>
         ))}
-
       </div>
     </div>
   );
