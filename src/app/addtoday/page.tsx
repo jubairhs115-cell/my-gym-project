@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { GymContext1 } from "@/app/context/page";
 import { IExercise } from "@/type/typo";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const AddToday = ({ check }: { check: IExercise }) => {
   const context = useContext(GymContext1);
@@ -20,9 +21,11 @@ const AddToday = ({ check }: { check: IExercise }) => {
     );
 
     if (alreadyAdded) {
+      toast.error(`already added to the plan`) ; 
       return;
     }
 
+    toast.success(`successfully saving of ${check.name}`) ; 
     setPlan((prev) => [...prev, check]);
   };
 
@@ -36,16 +39,7 @@ const AddToday = ({ check }: { check: IExercise }) => {
         Add to Todays Plan
       </button>
 
-      <Link
-        href="/plancompo"
-        className="ml-4 text-white"
-      >
-        Go to Plan
-      </Link>
-
-      <p className="mt-4 text-white">
-        Current Plan: {plan.length}
-      </p>
+      
     </div>
   );
 };

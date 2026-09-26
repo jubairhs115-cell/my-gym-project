@@ -1,9 +1,13 @@
 "use client";
 
 import React, { useContext } from "react";
+
 import { GymContext1 } from "@/app/context/page";
 import { IExercise } from "@/type/typo";
-import Link from "next/link";
+
+import { Bookmark } from "lucide-react";
+import { toast } from "react-toastify";
+ 
 
 const SaveLater = ({ check }: { check: IExercise }) => {
   const context = useContext(GymContext1);
@@ -20,9 +24,14 @@ const SaveLater = ({ check }: { check: IExercise }) => {
     );
 
     if (alreadySaved) {
+       toast.error(`already added to the saving cart`) ; 
       return;
+     
     }
 
+
+    toast.success(`successfully saving of ${check.name}`) ; 
+    
     setSave((prev) => [...prev, check]);
   };
 
@@ -31,21 +40,11 @@ const SaveLater = ({ check }: { check: IExercise }) => {
       <button
         type="button"
         onClick={handlegym}
-        className="h-12 rounded-xl bg-lime-400 px-5 text-sm font-bold text-black"
+        className="flex h-12 items-center gap-2 rounded-xl border border-zinc-700 bg-black px-5 text-sm font-bold text-white transition hover:border-pink-400 hover:bg-pink-400 hover:text-black"
       >
+        <Bookmark size={18} />
         Save for Later
       </button>
-
-      <Link
-        href="/savecompo"
-        className="ml-4 text-white"
-      >
-        Go to Saved
-      </Link>
-
-      <p className="mt-4 text-white">
-        Saved Exercises: {save.length}
-      </p>
     </div>
   );
 };
