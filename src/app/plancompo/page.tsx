@@ -1,4 +1,5 @@
- "use client";
+
+"use client";
 
 import React, { useContext } from "react";
 import Image from "next/image";
@@ -31,7 +32,6 @@ const SavePlanPage = () => {
     sortBy,
   } = context;
 
-  // Sort plan
   const sortedPlan = [...plan].sort((a, b) => {
     if (sortBy === "duration") {
       return Number(a.duration) - Number(b.duration);
@@ -48,15 +48,29 @@ const SavePlanPage = () => {
       );
     }
 
+    if (sortBy === "rating") {
+      const ratingA = parseFloat(
+        String(a.rating).match(/[\d.]+/)?.[0] || "0"
+      );
+
+      const ratingB = parseFloat(
+        String(b.rating).match(/[\d.]+/)?.[0] || "0"
+      );
+
+      return ratingB - ratingA;
+    }
+
     return 0;
   });
+
+  const handleRemove = (id: number) => {
+    removePlan(id);
+  };
 
   return (
     <div className="min-h-screen w-full bg-black pt-10 text-white">
 
-      {/* Heading */}
       <div className="relative mb-5 w-full">
-
         <h1 className="w-full text-center text-2xl font-bold">
           Today's Plan
         </h1>
@@ -64,19 +78,16 @@ const SavePlanPage = () => {
         <span className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full bg-lime-400 px-4 py-2 text-sm font-bold text-black">
           {sortedPlan.length} Exercises
         </span>
-
       </div>
 
-      {/* Empty State */}
       {sortedPlan.length === 0 && (
         <div className="flex h-[114px] w-full items-center justify-center rounded-2xl border border-zinc-800 bg-black">
           <p className="text-sm text-zinc-500">
-            No exercises added to todays plan.
+            No exercises added to your plan.
           </p>
         </div>
       )}
 
-      {/* Workout Cards */}
       <div className="space-y-4">
 
         {sortedPlan.map((exercise) => (
@@ -85,16 +96,16 @@ const SavePlanPage = () => {
             className="relative flex min-h-[114px] w-full flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-black md:h-[114px] md:flex-row"
           >
 
-            {/* Remove Button */}
             <button
               type="button"
-              onClick={() => removePlan(exercise.id)}
+              onClick={() =>
+                handleRemove(exercise.id)
+              }
               className="absolute right-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-zinc-900 text-white transition hover:bg-red-500"
             >
               <X size={16} />
             </button>
 
-            {/* Image */}
             <div className="relative h-[170px] w-full shrink-0 md:h-full md:w-[150px]">
               <Image
                 src={exercise.image}
@@ -104,13 +115,10 @@ const SavePlanPage = () => {
               />
             </div>
 
-            {/* Content */}
             <div className="flex flex-1 flex-col justify-center px-4 py-4 md:flex-row md:items-center md:px-5 md:py-0">
 
-              {/* Name + Muscle Groups */}
               <div className="min-w-0 flex-1 pr-10">
 
-                {/* Rating */}
                 <div className="mb-1 flex items-center gap-2">
                   <Star
                     size={15}
@@ -122,12 +130,10 @@ const SavePlanPage = () => {
                   </span>
                 </div>
 
-                {/* Exercise Name */}
                 <h2 className="truncate text-lg font-bold">
                   {exercise.name}
                 </h2>
 
-                {/* Muscle Groups */}
                 <div className="mt-2 flex flex-wrap gap-2">
                   {exercise.muscleGroups
                     ?.slice(0, 3)
@@ -143,10 +149,8 @@ const SavePlanPage = () => {
 
               </div>
 
-              {/* Time / Calories / Sets / Reps */}
               <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 md:mr-12 md:mt-0 md:flex md:items-center md:gap-6">
 
-                {/* Time */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Clock
                     size={16}
@@ -162,7 +166,6 @@ const SavePlanPage = () => {
                   </p>
                 </div>
 
-                {/* Calories */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Flame
                     size={16}
@@ -178,7 +181,6 @@ const SavePlanPage = () => {
                   </p>
                 </div>
 
-                {/* Sets */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Dumbbell
                     size={16}
@@ -194,7 +196,6 @@ const SavePlanPage = () => {
                   </p>
                 </div>
 
-                {/* Reps */}
                 <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
                   <Target
                     size={16}
@@ -213,12 +214,10 @@ const SavePlanPage = () => {
               </div>
 
             </div>
-
           </div>
         ))}
 
       </div>
-
     </div>
   );
 };

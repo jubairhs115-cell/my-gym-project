@@ -1,6 +1,9 @@
  "use client";
 
-import React, { useContext, useState } from "react";
+import React, {
+  useContext,
+  useState,
+} from "react";
 
 import SaveCompoPage from "../savecompo/page";
 import SavePlanPage from "../plancompo/page";
@@ -13,7 +16,11 @@ const SelectiveTabs = () => {
   const [activeTab, setActiveTab] = useState("plan");
 
   if (!context) {
-    return <div>Context not found</div>;
+    return (
+      <div className="bg-black text-white">
+        Context not found
+      </div>
+    );
   }
 
   const {
@@ -23,32 +30,34 @@ const SelectiveTabs = () => {
     setSortBy,
   } = context;
 
-  const currentData = activeTab === "plan" ? plan : save;
+  const currentData =
+    activeTab === "plan" ? plan : save;
 
   const totalMinutes = currentData.reduce(
-    (total, exercise) => total + Number(exercise.duration),
+    (total, exercise) =>
+      total + Number(exercise.duration),
     0
   );
 
   const totalCalories = currentData.reduce(
-    (total, exercise) => total + Number(exercise.caloriesBurned),
+    (total, exercise) =>
+      total + Number(exercise.caloriesBurned),
     0
   );
 
   return (
     <div className="min-h-screen bg-black px-4 py-8 text-white">
+
       <div className="mx-auto w-full max-w-[1184px]">
 
-        {/* Heading */}
-        <h1 className="mb-6 text-3xl font-bold text-white">
+        <h1 className="mb-6 text-3xl font-bold">
           Your Plan
         </h1>
 
-        {/* Summary Box */}
+        {/* SUMMARY */}
         <div className="h-[122px] w-full rounded-2xl border border-zinc-800 bg-black">
           <div className="grid h-full grid-cols-3">
 
-            {/* Exercises */}
             <div className="flex flex-col items-center justify-center">
               <p className="text-sm text-zinc-500">
                 Exercises
@@ -59,7 +68,6 @@ const SelectiveTabs = () => {
               </p>
             </div>
 
-            {/* Minutes */}
             <div className="flex flex-col items-center justify-center">
               <p className="text-sm text-zinc-500">
                 Minutes
@@ -70,7 +78,6 @@ const SelectiveTabs = () => {
               </p>
             </div>
 
-            {/* Calories */}
             <div className="flex flex-col items-center justify-center">
               <p className="text-sm text-zinc-500">
                 Calories
@@ -84,8 +91,9 @@ const SelectiveTabs = () => {
           </div>
         </div>
 
-        {/* Sort */}
+        {/* SORT */}
         <div className="mt-6 flex justify-end">
+
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -106,15 +114,20 @@ const SelectiveTabs = () => {
             <option value="calories">
               Calories
             </option>
+
+            <option value="rating">
+              Rating
+            </option>
           </select>
+
         </div>
 
-        {/* Tabs */}
+        {/* TABS */}
         <div className="mt-4 w-full bg-black">
 
           <div className="tabs tabs-lift tabs-bottom w-full">
 
-            {/* Plan Tab */}
+            {/* PLAN */}
             <input
               type="radio"
               name="my_tabs_5"
@@ -128,7 +141,7 @@ const SelectiveTabs = () => {
               <SavePlanPage />
             </div>
 
-            {/* Saved Tab */}
+            {/* SAVED */}
             <input
               type="radio"
               name="my_tabs_5"
@@ -146,6 +159,7 @@ const SelectiveTabs = () => {
         </div>
 
       </div>
+
     </div>
   );
 };
