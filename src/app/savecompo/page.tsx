@@ -1,221 +1,201 @@
  "use client";
 
-import React, { useContext } from "react";
-import Image from "next/image";
+import React, {
+  useContext,
+  useState,
+} from "react";
 
-import {
-  Clock,
-  Flame,
-  Dumbbell,
-  Target,
-  Star,
-  X,
-} from "lucide-react";
+import SaveCompoPage from "../savecompo/page";
+import SavePlanPage from "../plancompo/page";
 
 import { GymContext1 } from "@/app/context/page";
 
-const SaveCompoPage = () => {
+const SelectiveTabs = () => {
   const context = useContext(GymContext1);
+
+  const [activeTab, setActiveTab] =
+    useState("plan");
 
   if (!context) {
     return (
-      <div className="min-h-screen bg-black text-white">
+      <div className="bg-black text-white">
         Context not found
       </div>
     );
   }
 
   const {
+    plan,
     save,
-    removeSave,
     sortBy,
+    setSortBy,
   } = context;
 
-  // Sort saved exercises
-  const sortedSave = [...save].sort((a, b) => {
-    if (sortBy === "duration") {
-      return Number(a.duration) - Number(b.duration);
-    }
+  const currentData =
+    activeTab === "plan"
+      ? plan
+      : save;
 
-    if (sortBy === "time") {
-      return Number(a.duration) - Number(b.duration);
-    }
+  const totalMinutes = currentData.reduce(
+    (total, exercise) =>
+      total + Number(exercise.duration),
+    0
+  );
 
-    if (sortBy === "calories") {
-      return (
-        Number(a.caloriesBurned) -
-        Number(b.caloriesBurned)
-      );
-    }
-
-    return 0;
-  });
+  const totalCalories = currentData.reduce(
+    (total, exercise) =>
+      total + Number(exercise.caloriesBurned),
+    0
+  );
 
   return (
-    <div className="min-h-screen w-full bg-black pt-10 text-white">
+    <div className="min-h-screen bg-black px-4 py-8 text-white">
 
-      {/* Heading */}
-      <div className="relative mb-5 w-full">
+      <div className="mx-auto w-full max-w-[1184px]">
 
-        <h1 className="w-full text-center text-2xl font-bold">
-          Saved Exercises
+        {/* YOUR PLAN */}
+
+        <h1 className="mb-6 text-3xl font-bold">
+          Your Plan
         </h1>
 
-        <span className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full bg-pink-400 px-4 py-2 text-sm font-bold text-black">
-          {sortedSave.length} Exercises
-        </span>
+        {/* SUMMARY BOX */}
 
-      </div>
+        <div className="h-[122px] w-full rounded-2xl border border-zinc-800 bg-black">
 
-      {/* Empty State */}
-      {sortedSave.length === 0 && (
-        <div className="flex h-[114px] w-full items-center justify-center rounded-2xl border border-zinc-800 bg-black">
-          <p className="text-sm text-zinc-500">
-            No exercises saved for later.
-          </p>
-        </div>
-      )}
+          <div className="grid h-full grid-cols-3">
 
-      {/* Saved Cards */}
-      <div className="space-y-4">
+            {/* Exercises */}
 
-        {sortedSave.map((exercise) => (
-          <div
-            key={exercise.id}
-            className="relative flex min-h-[114px] w-full flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-black md:h-[114px] md:flex-row"
-          >
+            <div className="flex flex-col items-center justify-center">
 
-            {/* Remove Button */}
-            <button
-              type="button"
-              onClick={() => removeSave(exercise.id)}
-              className="absolute right-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-zinc-900 text-white transition hover:bg-red-500"
-            >
-              <X size={16} />
-            </button>
+              <p className="text-sm text-zinc-500">
+                Exercises
+              </p>
 
-            {/* Image */}
-            <div className="relative h-[170px] w-full shrink-0 md:h-full md:w-[150px]">
-              <Image
-                src={exercise.image}
-                alt={exercise.name}
-                fill
-                className="object-cover"
-              />
+              <p className="mt-2 text-3xl font-bold text-[#C2F800]">
+                {currentData.length}
+              </p>
+
             </div>
 
-            {/* Content */}
-            <div className="flex flex-1 flex-col justify-center px-4 py-4 md:flex-row md:items-center md:px-5 md:py-0">
+            {/* Minutes */}
 
-              {/* Name + Muscle Groups */}
-              <div className="min-w-0 flex-1 pr-10">
+            <div className="flex flex-col items-center justify-center">
 
-                {/* Rating */}
-                <div className="mb-1 flex items-center gap-2">
-                  <Star
-                    size={15}
-                    className="fill-yellow-400 text-yellow-400"
-                  />
+              <p className="text-sm text-zinc-500">
+                Minutes
+              </p>
 
-                  <span className="text-xs text-zinc-400">
-                    {exercise.rating}
-                  </span>
-                </div>
+              <p className="mt-2 text-3xl font-bold text-[#C2F800]">
+                {totalMinutes}
+              </p>
 
-                {/* Exercise Name */}
-                <h2 className="truncate text-lg font-bold">
-                  {exercise.name}
-                </h2>
+            </div>
 
-                {/* Muscle Groups */}
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {exercise.muscleGroups
-                    ?.slice(0, 3)
-                    .map((muscle) => (
-                      <span
-                        key={muscle}
-                        className="rounded-full bg-pink-400/10 px-2 py-1 text-[10px] text-pink-400"
-                      >
-                        {muscle}
-                      </span>
-                    ))}
-                </div>
+            {/* Calories */}
 
-              </div>
+            <div className="flex flex-col items-center justify-center">
 
-              {/* Time / Calories / Sets / Reps */}
-              <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 md:mr-12 md:mt-0 md:flex md:items-center md:gap-6">
+              <p className="text-sm text-zinc-500">
+                Calories
+              </p>
 
-                {/* Time */}
-                <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
-                  <Clock
-                    size={16}
-                    className="mx-auto mb-1 text-pink-400"
-                  />
-
-                  <p className="text-[10px] text-zinc-500">
-                    Time
-                  </p>
-
-                  <p className="text-xs font-semibold">
-                    {exercise.duration}
-                  </p>
-                </div>
-
-                {/* Calories */}
-                <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
-                  <Flame
-                    size={16}
-                    className="mx-auto mb-1 text-orange-400"
-                  />
-
-                  <p className="text-[10px] text-zinc-500">
-                    Calories
-                  </p>
-
-                  <p className="text-xs font-semibold">
-                    {exercise.caloriesBurned}
-                  </p>
-                </div>
-
-                {/* Sets */}
-                <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
-                  <Dumbbell
-                    size={16}
-                    className="mx-auto mb-1 text-pink-400"
-                  />
-
-                  <p className="text-[10px] text-zinc-500">
-                    Sets
-                  </p>
-
-                  <p className="text-xs font-semibold">
-                    {exercise.sets}
-                  </p>
-                </div>
-
-                {/* Reps */}
-                <div className="rounded-lg bg-zinc-900 p-2 text-center md:bg-transparent md:p-0">
-                  <Target
-                    size={16}
-                    className="mx-auto mb-1 text-pink-400"
-                  />
-
-                  <p className="text-[10px] text-zinc-500">
-                    Reps
-                  </p>
-
-                  <p className="text-xs font-semibold">
-                    {exercise.reps}
-                  </p>
-                </div>
-
-              </div>
+              <p className="mt-2 text-3xl font-bold text-[#C2F800]">
+                {totalCalories}
+              </p>
 
             </div>
 
           </div>
-        ))}
+
+        </div>
+
+        {/* SORT */}
+
+        <div className="mt-6 flex justify-end">
+
+          <select
+            value={sortBy}
+            onChange={(e) =>
+              setSortBy(e.target.value)
+            }
+            className="select select-warning bg-black text-white"
+          >
+
+            <option
+              value=""
+              disabled
+            >
+              Sort by
+            </option>
+
+            <option value="duration">
+              Duration
+            </option>
+
+            <option value="time">
+              Time
+            </option>
+
+            <option value="calories">
+              Calories
+            </option>
+
+            <option value="rating">
+              Rating
+            </option>
+
+          </select>
+
+        </div>
+
+        {/* TABS */}
+
+        <div className="mt-4 w-full bg-black">
+
+          <div className="tabs tabs-lift tabs-bottom w-full">
+
+            {/* PLAN TAB */}
+
+            <input
+              type="radio"
+              name="my_tabs_5"
+              className="tab bg-black text-zinc-400 checked:text-[#C2F800]"
+              aria-label="Plan"
+              defaultChecked
+              onChange={() =>
+                setActiveTab("plan")
+              }
+            />
+
+            <div className="tab-content border-zinc-800 bg-black p-0 pt-6">
+
+              <SavePlanPage />
+
+            </div>
+
+            {/* SAVED TAB */}
+
+            <input
+              type="radio"
+              name="my_tabs_5"
+              className="tab bg-black text-zinc-400 checked:text-[#C2F800]"
+              aria-label="Saved"
+              onChange={() =>
+                setActiveTab("save")
+              }
+            />
+
+            <div className="tab-content border-zinc-800 bg-black p-0 pt-6">
+
+              <SaveCompoPage />
+
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -223,4 +203,4 @@ const SaveCompoPage = () => {
   );
 };
 
-export default SaveCompoPage;
+export default SelectiveTabs;
