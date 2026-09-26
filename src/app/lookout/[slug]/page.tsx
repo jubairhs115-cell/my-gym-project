@@ -9,6 +9,8 @@ import {
     Dumbbell,
     Target,
 } from "lucide-react";
+import AddToday from "@/app/addtoday/page";
+
 
 interface Props {
     params: Promise<{
@@ -317,16 +319,9 @@ const GymDetails = async ({ params }: Props) => {
 
                             {/* Buttons */}
                             <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-
-                                {/* Add Today Plan */}
-                                <button
-                                    type="button"
-                                    className="h-12 rounded-xl bg-lime-400 px-5 text-sm font-bold text-black transition-all duration-300 hover:bg-lime-300 hover:shadow-[0_0_25px_rgba(163,230,53,0.25)]"
-                                >
-                                    Add to Today's Plan
-                                </button>
-
-                                {/* Save for Later */}
+                                 
+                                 <AddToday  check={check}/>
+                                
                                 <button
                                     type="button"
                                     className="h-12 rounded-xl border border-zinc-700 bg-black px-5 text-sm font-bold text-white transition-all duration-300 hover:border-zinc-500 hover:bg-zinc-900"
