@@ -61,7 +61,7 @@ const Navbar = () => {
 
             <li>
               <Link
-                href="/plancompo"
+                href="/card3"
                 className="rounded-xl hover:bg-lime-400 hover:text-black transition"
               >
                 My Plan
@@ -103,7 +103,7 @@ const Navbar = () => {
           {/* My Plan */}
           <li>
             <Link
-              href="/plancompo"
+              href="/card3"
               className="!text-lime-300 font-semibold rounded-full px-6 py-3 hover:bg-lime-300 hover:!text-black transition duration-300"
             >
               My Plan

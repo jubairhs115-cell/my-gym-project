@@ -12,7 +12,7 @@ import {
 
 import { GymContext1 } from "../context/page";
 
-const Page = () => {
+const SavePlanPage = () => {
   const context = useContext(GymContext1);
 
   if (!context) {
@@ -225,4 +225,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default SavePlanPage;
