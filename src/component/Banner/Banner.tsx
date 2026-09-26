@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React from 'react';
 import logo from "@/assest/banner.png";
+import Link from 'next/link';
 
 const Banner = () => {
     return (
@@ -29,9 +30,13 @@ const Banner = () => {
                                 lock it into todays plan, and watch the weeks work add up.
                             </p>
 
+                            <Link href='/hello'>
+                            
+                            
                             <button className="mt-6 btn bg-lime-400 hover:bg-lime-300 text-black border-none font-bold px-7">
                                 Browse Workout
                             </button>
+                            </Link>
                         </div>
 
                         {/* Image */}

@@ -1,4 +1,4 @@
-import WorkoutCard from "@/Card/WorkOutCard";
+import WorkoutCard from "@/Card/page";
 import { IExercise } from "@/type/typo";
 import React from "react";
 
