@@ -101,7 +101,7 @@ If your project uses environment variables, create a `.env.local` file in the ro
 For example:
 
 ```env
-NEXT_PUBLIC_API_URL=your_api_url
+NEXT_PUBLIC_API_URL=https://my-gym-project-diar.vercel.app/
 ```
 
 Use the exact variable name expected by your application.
@@ -139,7 +139,7 @@ The exercise data includes information such as:
 
 Add your deployed application URL here:
 
-[Visit FitLog Live Application](YOUR_LIVE_DEMO_URL)
+[Visit FitLog Live Application](https://my-gym-project-diar.vercel.app/)
 
 ## 📂 Project Repository
 
