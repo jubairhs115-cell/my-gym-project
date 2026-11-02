@@ -3,7 +3,7 @@
 A modern fitness web application designed to help users explore exercises, discover workout information, and learn about different fitness activities.
 
 <p align="center">
-  <a href="YOUR_LIVE_DEMO_URL">
+  <a href="https://my-gym-project-diar.vercel.app/">
     <img src="https://img.shields.io/badge/Live%20Demo-Visit%20Website-blue?style=for-the-badge&logo=vercel" alt="Live Demo" />
   </a>
   <a href="https://github.com/jubairhs115-cell/my-gym-project">
