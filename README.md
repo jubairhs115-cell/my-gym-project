@@ -156,6 +156,23 @@ Computer Science & Engineering Student | Aspiring Full-Stack Developer
 
 ---
 
+## 📸 Screenshots
+
+### 🏋️ Gym Dashboard
+![Gym Dashboard](./screenshots/gymdashboard.png)
+
+### 🧭 Gym Navigation Bar
+![Gym Navbar](./screenshots/gymNabvar.png)
+
+### 📋 Gym Plans
+![Gym Plans](./screenshots/gymplan.png)
+
+### 💪 Workout Section
+![Gym Workout](./screenshots/gymworkout.png)
+
+### ⭐ Saved Plans
+![Saved Plans](./screenshots/saveplan.png)
+
 <p align="center">
   ⭐ If you find this project interesting, consider giving it a star!
 </p>
